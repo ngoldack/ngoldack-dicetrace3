@@ -1,0 +1,425 @@
+openapi: 3.0.3
+
+info:
+  title: API Spec for dicetrace.io
+  description: >
+    This is the API specification for dicetrace.io. It is used to generate
+    the API client libraries and the API documentation.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/v1
+    description: Local server
+
+  - url: https://api.dicetrace.io/v1
+    description: Production server
+
+tags:
+  - name: user
+    description: User management
+  - name: collection
+    description: Collection management
+  - name: game
+    description: Game management
+
+paths:
+  /user:
+    get:
+      tags:
+        - user
+      summary: Get user
+      description: Get the user information for the currently logged in user
+      operationId: getUser
+      responses:
+        "200":
+          description: User information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: Create a new user
+      operationId: createUser
+      requestBody:
+        description: User information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Bad request
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /user/{userId}/collection:
+    get:
+      tags:
+        - collection
+      summary: Get collection
+      description: Get the collection for the given user ID
+      operationId: getCollection
+      parameters:
+        - name: userId
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Collection
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Collection"
+        "401":
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: User not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - collection
+      summary: Create collection
+      description: Create a new collection for the given user ID
+      operationId: createCollection
+      parameters:
+        - name: userId
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Collection information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Collection"
+      responses:
+        "201":
+          description: Collection created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Collection"
+        "400":
+          description: Bad request
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: User not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /user/{userId}:
+    get:
+      tags:
+        - user
+      summary: Get user by ID
+      description: Get the user information for the given user ID
+      operationId: getUserById
+      parameters:
+        - name: userId
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: User information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: User not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: Delete the user with the given user ID. The currently logged in user must be the same as the user to be deleted.
+      operationId: deleteUser
+      parameters:
+        - name: userId
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: User deleted
+        "401":
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: User not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /user/{userId}/collection/{collectionId}:
+    get:
+      tags:
+        - collection
+      summary: Get collection by ID
+      description: Get the collection information for the given collection ID
+      operationId: getCollectionById
+      parameters:
+        - name: userId
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: collectionId
+          in: path
+          description: Collection ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Collection information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Collection"
+        "401":
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Collection not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /game:
+    get:
+      tags:
+        - game
+      summary: Get games
+      description: Gets a list of games
+      operationId: getGames
+      parameters:
+        - name: limit
+          in: query
+          description: Limit the number of games returned
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: offset
+          in: query
+          description: Offset the number of games returned
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: name
+          in: query
+          description: Filter games by name
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Games
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Game"
+        "401":
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: User ID
+        email:
+          type: string
+          format: email
+          description: User email address
+        name:
+          type: string
+          description: User name
+
+    Game:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Game ID
+        name:
+          type: string
+          description: Game name
+        bggId:
+          type: string
+          description: BoardGameGeek ID
+
+    Collection:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Collection ID
+        userId:
+          type: string
+          format: uuid
+          description: User ID
+        games:
+          type: array
+          items:
+            $ref: "#/components/schemas/Game"
+
+    Error:
+      description: Error response object. Follows problem+json specification.
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference to the error type
+        title:
+          type: string
+          description: Short description of the error
+        status:
+          type: integer
+          description: HTTP status code
+        detail:
+          type: string
+          description: Detailed description of the error
+        instance:
+          type: string
+          description: URI reference to the error instance
+      required:
+        - type
+        - title
+        - status
+        - detail
+        - instance

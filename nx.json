@@ -1,0 +1,27 @@
+{
+  "implicitDependencies": {
+    "go.mod": "*"
+  },
+  "npmScope": "dicetrace",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ]
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
+        "accessToken": "MDAyMDM3YjUtNDM4OC00ODIzLWIxYzgtNzg3ZTJkNmI4OWJifHJlYWQtd3JpdGU="
+      }
+    }
+  }
+}
