@@ -1,5 +1,6 @@
 go 1.20
 
 use (
-    apps/api
+	apps/api
+	apps/game
 )
