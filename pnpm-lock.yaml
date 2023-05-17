@@ -29,7 +29,7 @@ devDependencies:
     version: 2.1.0(react-dom@17.0.2)(react@17.0.2)
   '@nrwl/nx-cloud':
     specifier: latest
-    version: 16.0.1
+    version: 16.0.5
   '@nrwl/workspace':
     specifier: 15.9.2
     version: 15.9.2
@@ -42,6 +42,9 @@ devDependencies:
   '@nx-plus/docusaurus':
     specifier: 15.0.0-rc.0
     version: 15.0.0-rc.0(@nrwl/workspace@15.9.2)(nx@15.9.2)
+  '@nxrs/cargo':
+    specifier: ^0.3.3
+    version: 0.3.3(@nrwl/devkit@15.9.2)
   '@openapitools/openapi-generator-cli':
     specifier: 2.3.7
     version: 2.3.7
@@ -2550,10 +2553,10 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /@nrwl/nx-cloud@16.0.1:
-    resolution: {integrity: sha512-z5Ydlw9BU6DJCvwVI0LPVdMRORAxeHdIS4wzdsrSvoCeVEL6l6RCk1c3bXQ6IHtA2EdVt0yDirMp0Q0ybf5fIQ==}
+  /@nrwl/nx-cloud@16.0.5:
+    resolution: {integrity: sha512-1p82ym8WE9ziejwgPslstn19iV/VkHfHfKr/5YOnfCHQS+NxUf92ogcYhHXtqWLblVZ9Zs4W4pkSXK4e04wCmQ==}
     dependencies:
-      nx-cloud: 16.0.1
+      nx-cloud: 16.0.5
     transitivePeerDependencies:
       - debug
     dev: true
@@ -2731,6 +2734,15 @@ packages:
       '@nrwl/workspace': 15.9.2
     transitivePeerDependencies:
       - nx
+    dev: true
+
+  /@nxrs/cargo@0.3.3(@nrwl/devkit@15.9.2):
+    resolution: {integrity: sha512-Osh6dbWfygkCTLwedIv/+qyFUJ/rvultE4KN8ELimBgaGKbPrCqqlxVqhnzAcfEv2qYs/tLKRKvPCJqCBCH1Ig==}
+    peerDependencies:
+      '@nrwl/devkit': '>= 12.7.0'
+    dependencies:
+      '@nrwl/devkit': 15.9.2(nx@15.9.2)
+      chalk: 4.1.2
     dev: true
 
   /@openapitools/openapi-generator-cli@2.3.7:
@@ -3592,6 +3604,16 @@ packages:
     transitivePeerDependencies:
       - debug
     dev: false
+
+  /axios@1.1.3:
+    resolution: {integrity: sha512-00tXVRwKx/FZr/IDVFt4C+f9FYairX517WoGCL6dpOntqLkZofjhu43F/Xl44UOpqa+9sLFDrG/XAnFsUYgkDA==}
+    dependencies:
+      follow-redirects: 1.15.2
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+    dev: true
 
   /axios@1.3.6:
     resolution: {integrity: sha512-PEcdkk7JcdPiMDkvM4K6ZBRYq9keuVJsToxm2zQIM70Qqo2WHTdJZMXcG9X+RmRp2VPNUQC8W1RAGbgt6b1yMg==}
@@ -6662,16 +6684,17 @@ packages:
       boolbase: 1.0.0
     dev: false
 
-  /nx-cloud@16.0.1:
-    resolution: {integrity: sha512-epCxvKVK9niHzZ5TiCJ+93PtXcZmXqkITiqV/qwihJEM4xY4H16qYGYN76Y8sF7dRYC+vlYE5WgFwuGlPXo2Fw==}
+  /nx-cloud@16.0.5:
+    resolution: {integrity: sha512-13P7r0aKikjBtmdZrNorwXzVPeVIV4MLEwqGY+DEG6doLBtI5KqEQk/d5B5l2dCF2BEi/LXEmLYCmf9gwbOJ+Q==}
     hasBin: true
     dependencies:
-      '@nrwl/nx-cloud': 16.0.1
-      axios: 1.3.6
+      '@nrwl/nx-cloud': 16.0.5
+      axios: 1.1.3
       chalk: 4.1.2
       dotenv: 10.0.0
       fs-extra: 11.1.1
       node-machine-id: 1.1.12
+      open: 8.4.2
       strip-json-comments: 3.1.1
       tar: 6.1.11
       yargs-parser: 21.1.1

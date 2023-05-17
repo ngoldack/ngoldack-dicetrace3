@@ -11,6 +11,7 @@
     "@nx-extend/terraform": "^0.0.4",
     "@nx-go/nx-go": "^2.7.0",
     "@nx-plus/docusaurus": "15.0.0-rc.0",
+    "@nxrs/cargo": "^0.3.3",
     "@openapitools/openapi-generator-cli": "2.3.7",
     "@trumbitta/nx-plugin-openapi": "^1.12.1",
     "nx": "15.9.2",

@@ -1,1 +1,0 @@
-module libs/go/domain
